@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,17 +87,17 @@
         }
     </style>
 </head>
-<body>
+<body dir="rtl">
     <div class="container">
         <div class="lang-toggle">
-            <button id="btn-en" class="active" onclick="setLang('en')">English</button>
-            <button id="btn-ar" onclick="setLang('ar')">العربية</button>
+            <button id="btn-en" onclick="setLang('en')">English</button>
+            <button id="btn-ar" class="active" onclick="setLang('ar')">العربية</button>
         </div>
 
         <!-- ENGLISH -->
-        <section id="lang-en" class="lang-section active">
+        <section id="lang-en" class="lang-section">
             <h1>Privacy Policy</h1>
-            <p class="subtitle">Shura Council App &mdash; Last updated: April 20, 2026</p>
+            <p class="subtitle">Shura Council App &mdash; Last updated: October 13, 2026</p>
 
             <h2>Introduction</h2>
             <p>Shura Council ("the App") is a secure workplace messaging and collaboration platform developed for the Qatar Shura Council. This policy explains what data we collect, how we use it, and the rights you have. The App is bilingual (Arabic and English) and this policy is available in both languages.</p>
@@ -124,12 +124,14 @@
                 <li>Online status and last-seen timestamp (to support presence features)</li>
                 <li>Read receipts for messages</li>
                 <li>Notification preferences (including muted conversations)</li>
+                <li>Technical crash reports: stack traces, device/OS information and diagnostic session data. We do not add names, contact details, passwords, invitation codes or message content to crash reports.</li>
+                <li>App Attest or DeviceCheck security information used to verify requests from the app.</li>
             </ul>
 
             <h2>Permissions the App Requests</h2>
             <p>The App requests the following iOS permissions. You can revoke any of these at any time in your device's Settings:</p>
             <ul>
-                <li><strong>Face ID / Touch ID</strong> — optional, for biometric sign-in. If enabled, your email and password are stored locally in the iOS Keychain with hardware-level biometric protection. These credentials are <strong>never sent to our servers</strong>.</li>
+                <li><strong>Face ID / Touch ID</strong> — optional, for biometric sign-in. If enabled, your email and password are stored locally in the iOS Keychain with hardware-level biometric protection. After biometric approval, the saved credentials are sent over an encrypted connection to Firebase Authentication to sign in. Your biometric data stays on your device.</li>
                 <li><strong>Camera</strong> — to take photos to share in chats or set as your profile picture.</li>
                 <li><strong>Microphone</strong> — to record voice messages (only if your role has the voice message capability).</li>
                 <li><strong>Photo Library</strong> — to share existing photos in chats or set as your profile picture.</li>
@@ -148,16 +150,18 @@
             <p>We do not use your information for advertising, profiling, or any purpose outside the App.</p>
 
             <h2>Data Storage and Security</h2>
-            <p>All data is stored using Google Firebase infrastructure (servers located in the United States, <code>us-central1</code> region):</p>
+            <p>The app uses Google Firebase infrastructure. Its Cloud Functions run in <code>us-central1</code>; Firebase services may process data outside Qatar, including in the United States:</p>
             <ul>
                 <li><strong>Firebase Authentication</strong> — account credentials and sign-in state</li>
                 <li><strong>Cloud Firestore</strong> — user profiles, messages, events, news</li>
                 <li><strong>Firebase Storage</strong> — images, files, voice messages, profile photos</li>
                 <li><strong>Firebase Cloud Functions</strong> — server-side logic (user role assignment, notifications)</li>
                 <li><strong>Firebase Cloud Messaging (FCM)</strong> — push notification delivery</li>
+                <li><strong>Firebase Crashlytics</strong> — technical crash diagnostics to improve reliability; no advertising or cross-app tracking</li>
+                <li><strong>Firebase App Check</strong> — app/device attestation to protect backend access</li>
             </ul>
             <p>All data is encrypted in transit (TLS) and at rest. Access is restricted to authenticated members of the organization through role-based access controls enforced by Firebase Security Rules and application-level checks.</p>
-            <p><strong>Biometric credentials</strong> (if you enable Face ID / Touch ID sign-in) are stored only on your device's iOS Keychain with hardware-level biometric protection. They are never transmitted to our servers.</p>
+            <p><strong>Biometric credentials</strong> (if you enable Face ID / Touch ID sign-in) are stored only on your device's iOS Keychain with hardware-level biometric protection. Biometric templates stay on the device; saved sign-in credentials are transmitted securely to Firebase Authentication when you sign in.</p>
 
             <h2>Data Sharing</h2>
             <p>We do not sell, trade, or share your personal information with third parties for their marketing, advertising, or commercial purposes.</p>
@@ -172,7 +176,7 @@
             <p>You have the right to:</p>
             <ul>
                 <li>Access your personal data stored in the App.</li>
-                <li>Update your profile (name, phone, photo, department) at any time.</li>
+                <li>Update your profile name, phone and photo. Ask your administrator about department or access changes.</li>
                 <li>Request correction of inaccurate information through your administrator.</li>
                 <li>Delete your account and associated data from within the App (Profile → Delete Account).</li>
                 <li>Enable or disable biometric sign-in at any time.</li>
@@ -184,10 +188,10 @@
             <h2>Data Retention</h2>
             <ul>
                 <li><strong>Account data</strong> is retained while your account is active.</li>
-                <li><strong>Messages</strong> may be retained for organizational record-keeping, consistent with parliamentary document retention requirements. Messages can be edited within 15 minutes of sending and soft-deleted afterwards.</li>
-                <li><strong>FCM tokens</strong> are removed when you sign out.</li>
-                <li><strong>Biometric credentials</strong> stored on-device are cleared when you sign out after enabling biometric sign-in is disabled, and on account deletion.</li>
-                <li><strong>Deleted accounts</strong> — your profile is removed. Some data (such as message history in shared conversations) may persist for organizational record-keeping.</li>
+                <li><strong>Messages</strong> may be retained for organizational record-keeping, under the organization’s retention decisions. Messages can be edited within 15 minutes of sending and soft-deleted afterwards.</li>
+                <li><strong>FCM tokens</strong> are kept in private account records for notifications. The app attempts to remove the current device token on sign-out; account deletion removes its token record.</li>
+                <li><strong>Biometric credentials</strong> stored on-device are cleared when biometric sign-in is disabled and on account deletion.</li>
+                <li><strong>Deleted accounts</strong> — your profile, private notification-token record and profile media are removed. Some data (such as message history in shared conversations) may persist for organizational record-keeping.</li>
             </ul>
 
             <h2>Push Notifications</h2>
@@ -213,7 +217,7 @@
             <p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated revision date.</p>
 
             <h2>Contact</h2>
-            <p>If you have questions about this privacy policy or your data, please contact us at <a href="mailto:dev.hamam@gmail.com">dev.hamam@gmail.com</a>.</p>
+            <p>If you have questions about this privacy policy or your data, please contact us at <a href="mailto:hamam@gccapps.com">hamam@gccapps.com</a>.</p>
 
             <div class="footer">
                 &copy; 2026 Shura Council App. All rights reserved.
@@ -221,9 +225,9 @@
         </section>
 
         <!-- ARABIC -->
-        <section id="lang-ar" class="lang-section" dir="rtl">
+        <section id="lang-ar" class="lang-section active" dir="rtl">
             <h1>سياسة الخصوصية</h1>
-            <p class="subtitle">تطبيق مجلس الشورى &mdash; آخر تحديث: 20 أبريل 2026</p>
+            <p class="subtitle">تطبيق مجلس الشورى &mdash; آخر تحديث: 13 أكتوبر 2026</p>
 
             <h2>المقدمة</h2>
             <p>مجلس الشورى ("التطبيق") هو منصة آمنة للمراسلة والتعاون في بيئة العمل، طُوِّرت لمجلس الشورى في دولة قطر. توضح هذه السياسة البيانات التي نجمعها، وكيفية استخدامها، وحقوقك المتعلقة بها. التطبيق ثنائي اللغة (العربية والإنجليزية)، وهذه السياسة متاحة باللغتين.</p>
@@ -250,12 +254,14 @@
                 <li>حالة الاتصال وآخر ظهور (لدعم ميزات الحضور)</li>
                 <li>إيصالات قراءة الرسائل</li>
                 <li>تفضيلات الإشعارات (بما في ذلك المحادثات المكتومة)</li>
+                <li>تقارير أعطال تقنية: مسارات الاستدعاء، ومعلومات الجهاز والنظام، وبيانات جلسات التشخيص. لا نضيف الأسماء أو بيانات التواصل أو كلمات المرور أو رموز الدعوة أو محتوى الرسائل إلى تقارير الأعطال.</li>
+                <li>معلومات أمان من App Attest أو DeviceCheck للتحقق من طلبات التطبيق.</li>
             </ul>
 
             <h2>الأذونات التي يطلبها التطبيق</h2>
             <p>يطلب التطبيق الأذونات التالية على نظام iOS، ويمكنك إلغاء أيٍّ منها في أي وقت من إعدادات الجهاز:</p>
             <ul>
-                <li><strong>Face ID / Touch ID</strong> — اختياري، لتسجيل الدخول بالبصمة. عند التفعيل، يُخزَّن بريدك الإلكتروني وكلمة المرور محلياً في iOS Keychain مع حماية بصمية على مستوى العتاد. <strong>لا تُرسَل هذه البيانات إلى خوادمنا إطلاقاً</strong>.</li>
+                <li><strong>Face ID / Touch ID</strong> — اختياري، لتسجيل الدخول بالبصمة. عند التفعيل، يُخزَّن بريدك الإلكتروني وكلمة المرور محلياً في iOS Keychain مع حماية بصمية على مستوى العتاد. <strong>بعد نجاح التحقق بالبصمة، تُرسَل بيانات تسجيل الدخول المحفوظة عبر اتصال مشفّر إلى Firebase Authentication لتسجيل الدخول. تبقى بيانات البصمة على جهازك</strong>.</li>
                 <li><strong>الكاميرا</strong> — لالتقاط الصور ومشاركتها في المحادثات أو تعيينها كصورة شخصية.</li>
                 <li><strong>الميكروفون</strong> — لتسجيل الرسائل الصوتية (فقط إذا كانت لديك صلاحية الرسائل الصوتية).</li>
                 <li><strong>مكتبة الصور</strong> — لمشاركة الصور الموجودة في المحادثات أو تعيينها كصورة شخصية.</li>
@@ -274,16 +280,18 @@
             <p>لا نستخدم معلوماتك لأغراض الإعلان أو التصنيف أو أي غرض خارج نطاق التطبيق.</p>
 
             <h2>تخزين البيانات وأمانها</h2>
-            <p>تُخزَّن جميع البيانات باستخدام بنية Google Firebase (خوادم موجودة في الولايات المتحدة، منطقة <code>us-central1</code>):</p>
+            <p>يستخدم التطبيق بنية Google Firebase. تعمل Cloud Functions في منطقة <code>us-central1</code>، وقد تعالج خدمات Firebase البيانات خارج قطر، بما في ذلك الولايات المتحدة:</p>
             <ul>
                 <li><strong>Firebase Authentication</strong> — بيانات اعتماد الحساب وحالة تسجيل الدخول</li>
                 <li><strong>Cloud Firestore</strong> — الملفات الشخصية، الرسائل، الفعاليات، الأخبار</li>
                 <li><strong>Firebase Storage</strong> — الصور، الملفات، الرسائل الصوتية، الصور الشخصية</li>
                 <li><strong>Firebase Cloud Functions</strong> — المنطق من جانب الخادم (إسناد الأدوار، الإشعارات)</li>
                 <li><strong>Firebase Cloud Messaging</strong> — توصيل الإشعارات</li>
+                <li><strong>Firebase Crashlytics</strong> — تشخيص الأعطال التقنية لتحسين الموثوقية؛ دون إعلانات أو تتبع عبر التطبيقات</li>
+                <li><strong>Firebase App Check</strong> — التحقق من التطبيق والجهاز لحماية الوصول إلى الخادم</li>
             </ul>
             <p>تُشفَّر جميع البيانات أثناء النقل (TLS) وأثناء التخزين. يقتصر الوصول على الأعضاء المصرَّح لهم في المنظمة عبر ضوابط وصول مبنية على الأدوار، تُفرَض بواسطة قواعد أمان Firebase وعلى مستوى التطبيق.</p>
-            <p><strong>بيانات اعتماد البصمة</strong> (في حال تفعيل تسجيل الدخول بـ Face ID / Touch ID) تُخزَّن فقط في iOS Keychain على جهازك مع حماية بصمية على مستوى العتاد، ولا تُرسَل إلى خوادمنا أبداً.</p>
+            <p><strong>بيانات اعتماد البصمة</strong> (في حال تفعيل تسجيل الدخول بـ Face ID / Touch ID) تُخزَّن فقط في iOS Keychain على جهازك مع حماية بصمية على مستوى العتاد، تبقى بيانات البصمة على الجهاز، بينما تُرسَل بيانات تسجيل الدخول المحفوظة بأمان إلى Firebase Authentication عند تسجيل الدخول.</p>
 
             <h2>مشاركة البيانات</h2>
             <p>لا نبيع أو نتاجر أو نشارك معلوماتك الشخصية مع أطراف خارجية لأغراضها التسويقية أو الإعلانية أو التجارية.</p>
@@ -298,7 +306,7 @@
             <p>يحق لك:</p>
             <ul>
                 <li>الوصول إلى بياناتك الشخصية المخزَّنة في التطبيق.</li>
-                <li>تحديث ملفك الشخصي (الاسم، الهاتف، الصورة، الإدارة) في أي وقت.</li>
+                <li>تحديث الاسم والهاتف والصورة في ملفك الشخصي، والتواصل مع المسؤول بشأن تغيير الإدارة أو الصلاحيات.</li>
                 <li>طلب تصحيح أي معلومات غير دقيقة عبر المسؤول.</li>
                 <li>حذف حسابك والبيانات المرتبطة به من داخل التطبيق (الملف الشخصي ← حذف الحساب).</li>
                 <li>تفعيل أو إلغاء تسجيل الدخول بالبصمة في أي وقت.</li>
@@ -310,10 +318,10 @@
             <h2>الاحتفاظ بالبيانات</h2>
             <ul>
                 <li><strong>بيانات الحساب</strong> تُحفَظ طالما كان حسابك فعّالاً.</li>
-                <li><strong>الرسائل</strong> قد تُحفَظ لأغراض السجلات التنظيمية، بما يتوافق مع متطلبات حفظ الوثائق البرلمانية. يمكن تعديل الرسائل خلال 15 دقيقة من إرسالها وحذفها لاحقاً حذفاً ليّناً.</li>
-                <li><strong>رموز FCM</strong> تُحذَف عند تسجيل الخروج.</li>
+                <li><strong>الرسائل</strong> قد تُحفَظ لأغراض السجلات التنظيمية، وفق قرارات الجهة بشأن الاحتفاظ بالسجلات. يمكن تعديل الرسائل خلال 15 دقيقة من إرسالها وحذفها لاحقاً حذفاً ليّناً.</li>
+                <li><strong>رموز FCM</strong> تُحفَظ في سجلات خاصة بالحساب للإشعارات. يحاول التطبيق إزالة رمز الجهاز الحالي عند تسجيل الخروج، ويزيل حذف الحساب سجل رموزه.</li>
                 <li><strong>بيانات اعتماد البصمة</strong> المخزَّنة على الجهاز تُمسَح عند إلغاء تفعيل البصمة وعند حذف الحساب.</li>
-                <li><strong>الحسابات المحذوفة</strong> — يُزال ملفك الشخصي. قد تبقى بعض البيانات (مثل سجل الرسائل في المحادثات المشتركة) لأغراض السجلات التنظيمية.</li>
+                <li><strong>الحسابات المحذوفة</strong> — يُزال ملفك الشخصي وسجل رموز الإشعارات الخاص ووسائط الملف الشخصي. قد تبقى بعض البيانات (مثل سجل الرسائل في المحادثات المشتركة) لأغراض السجلات التنظيمية.</li>
             </ul>
 
             <h2>الإشعارات</h2>
@@ -339,7 +347,7 @@
             <p>قد نُحدِّث هذه السياسة من حين لآخر. تُعكَس أي تغييرات على هذه الصفحة مع تاريخ المراجعة المحدَّث.</p>
 
             <h2>التواصل</h2>
-            <p>للاستفسارات حول هذه السياسة أو بياناتك، تواصل معنا عبر <a href="mailto:dev.hamam@gmail.com">dev.hamam@gmail.com</a>.</p>
+            <p>للاستفسارات حول هذه السياسة أو بياناتك، تواصل معنا عبر <a href="mailto:hamam@gccapps.com">hamam@gccapps.com</a>.</p>
 
             <div class="footer">
                 &copy; 2026 تطبيق مجلس الشورى. جميع الحقوق محفوظة.
@@ -362,9 +370,9 @@
             let lang = null;
             try { lang = localStorage.getItem('shura-privacy-lang'); } catch (e) {}
             if (!lang) {
-                lang = (navigator.language || 'en').toLowerCase().startsWith('ar') ? 'ar' : 'en';
+                lang = 'ar';
             }
-            if (lang === 'ar') setLang('ar');
+            setLang(lang === 'en' ? 'en' : 'ar');
         })();
     </script>
 </body>
